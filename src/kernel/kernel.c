@@ -2,9 +2,17 @@
 // Created by bulbasaur on 25/1/25.
 //
 
-
+#include "../gdt/gdt.h"
+#include "../idt/idt.h"
+void loop(){
+  int a = 9;
+  int c = (a / 9) - 1;
+  int d = a/c;
+  int e = d + 1;
+  while(e){}
+}
 void kernel_main(){
-  char* memory = (char*)0xB8000;
-  *memory = 'a';
-  while(1){}
+  init_gdt();
+  init_idt();
+  loop();
 }
