@@ -1,1 +1,1 @@
-qemu-system-i386 -hda ./build/snake.os
+qemu-system-i386 -hda ./build/snake.os -d int -D qemu.log

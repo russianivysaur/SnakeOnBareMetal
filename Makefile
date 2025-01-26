@@ -5,7 +5,7 @@ all: ./build/snake.os
 
 ./build/snake.os: ./build/boot.o ./build/kernel.o ./build/gdt.o ./build/gdt_asm.o ./build/idt.o ./build/idt_asm.o
 	i686-elf-ld -g -T linker.ld -o $(DEBUG) $^
-	i686-elf-gcc -g -T linker.ld -o $@ -ffreestanding -O2 -nostdlib $^ -lgcc
+	i686-elf-gcc -g -T linker.ld -o $@ -ffreestanding -O0 -nostdlib $^ -lgcc
 
 
 ./build/boot.o: ./src/boot/boot.asm

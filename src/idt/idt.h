@@ -1,10 +1,13 @@
 #include <stdint.h>
 #ifndef IDT_H
 #define IDT_H
+
 #define IDT_SIZE 256
+#define KERNEL_CODE_SEG 0x08
+
 struct IDTDescriptor{
+  uint16_t size;
   uint32_t offset;
-  uint32_t size;
 }__attribute__((packed));
 
 struct GateDescriptor{

@@ -10,10 +10,10 @@ struct SegmentDescriptor make_descriptor(uint32_t base,
   struct SegmentDescriptor descriptor;
   descriptor.limit_1 = (limit & 0x0000ffff);
   descriptor.base_1 = (base &   0x0000ffff);
-  descriptor.base_2 = (base &   0x00ff0000);
+  descriptor.base_2 = (base &   0x00ff0000) >> 16;
   descriptor.access_byte = access_byte;
-  descriptor.limit_2_and_flags = (limit & 0x000f0000) | (flags << 4);
-  descriptor.base_3 = (base &   0xff000000);
+  descriptor.limit_2_and_flags = ((limit & 0x000f0000) >> 16) | (flags << 4);
+  descriptor.base_3 = (base &   0xff000000) >> 24;
   return descriptor;
 }
 
@@ -25,7 +25,6 @@ void init_gdt(){
 
   //kernel data seg
   gdt_descriptors[2] = make_descriptor(0,0xFFFFFFFF,0x92,0xC);
-
 
   gdt_descriptor.size = sizeof(gdt_descriptors) - 1;
   gdt_descriptor.offset = (uint32_t) &gdt_descriptors[0];
