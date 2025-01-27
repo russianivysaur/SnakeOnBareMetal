@@ -5,24 +5,38 @@
 #include "snake.h"
 
 
-struct Snake NewSnake(){
+struct Snake NewSnake(uint32_t length){
   struct Snake snake;
-  snake.max_length = 20;
-  snake.current_length = 1;
   snake.current_direction = UP;
 
-  //current head
-  struct SnakePiece head;
-  head.current_pos = 0;
-  head.next = -1;
-  head.prev = -1;
+  snake.length = 1;
 
-  snake.pieces[0] = head;
+  //head
+  snake.pieces[0].current_pos = 0;
+  snake.pieces[0].next = -1;
+  snake.pieces[0].prev = -1;
+
+
+  //rest of the body
+  for(uint32_t i=1;i<=length-1;i++){
+    snake.pieces[i].current_pos = 0;
+    snake.pieces[i].next = -1;
+    //make prev point to previous entry
+    snake.pieces[i].prev = i-1;
+    //make next pointer to this
+    snake.pieces[i-1].next = i;
+    snake.length++;
+  }
+
   return snake;
 }
 
 
 struct Snake move(struct Snake snake){
+  for(uint32_t i=1;i<=snake.length-1;i++){
+    snake.pieces[i].current_pos = snake.pieces[i-1].current_pos;
+  }
+  snake.pieces[0].current_pos += 2;
   return snake;
 }
 

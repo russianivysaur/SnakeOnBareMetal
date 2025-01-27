@@ -7,11 +7,12 @@ static char c = '0';
 extern struct Snake snake;
 
 uint32_t ticks = 0;
-uint32_t target = 1000;
+uint32_t target = 400;
 void c_pit_handler() {
     ticks++;
     if(ticks == target){
       ticks = 0;
+      ((char*)0xB8000)[0] = c;
       snake = move(snake);
       update_display(snake);
     }
