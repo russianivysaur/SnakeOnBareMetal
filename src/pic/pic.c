@@ -7,6 +7,8 @@
 
 
 void init_pic(){
+
+  //initializing master and slave pics
   outb(0x20,0x11);
   outb(0xA0,0x11);
 
@@ -19,8 +21,15 @@ void init_pic(){
   outb(0x21,0x05);
   outb(0xA1,0x01);
 
-  outb(0x21,0xfd);
+  outb(0x21,0xfc);
   outb(0xA1,0xff);
+
+  //pit init
+
+  uint16_t div = 1193190 / 1000;
+  outb(0x43,0x36);
+  outb(0x40,div & 0xff);
+  outb(0x40,(div >> 8) & 0xff);
 
   asm("sti");
 }

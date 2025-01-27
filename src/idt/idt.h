@@ -19,5 +19,4 @@ struct GateDescriptor{
 }__attribute__((packed));
 
 void init_idt();
-void c_handler();
 #endif
