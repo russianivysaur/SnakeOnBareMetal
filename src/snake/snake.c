@@ -14,19 +14,12 @@ struct Snake NewSnake(uint32_t length){
   //head
   snake.pieces[0].row = 0;
   snake.pieces[0].col = 0;
-  snake.pieces[0].next = -1;
-  snake.pieces[0].prev = -1;
 
 
   //rest of the body
   for(uint32_t i=1;i<=length-1;i++){
     snake.pieces[i].row = 0;
     snake.pieces[i].col = 0;
-    snake.pieces[i].next = -1;
-    //make prev point to previous entry
-    snake.pieces[i].prev = i-1;
-    //make next pointer to this
-    snake.pieces[i-1].next = i;
     snake.length++;
   }
 
@@ -49,16 +42,24 @@ struct Snake move(struct Snake snake){
   }
   switch(snake.direction){
     case UP:
+      if(snake.pieces[0].row==0){
+        snake.pieces[0].row = HEIGHT-1;
+        break;
+      }
       snake.pieces[0].row = (snake.pieces[0].row - 1)%HEIGHT;
       break;
     case DOWN:
       snake.pieces[0].row = (snake.pieces[0].row + 1)%HEIGHT;
       break;
     case LEFT:
-      snake.pieces[1].col = (snake.pieces[0].col - 1)%WIDTH;
+      if(snake.pieces[0].col==0){
+        snake.pieces[0].col = WIDTH-1;
+        break;
+      }
+      snake.pieces[0].col = (snake.pieces[0].col - 1)%WIDTH;
       break;
     case RIGHT:
-      snake.pieces[1].col = (snake.pieces[0].col + 1)%WIDTH;
+      snake.pieces[0].col = (snake.pieces[0].col + 1)%WIDTH;
       break;
   }
   return snake;
@@ -67,11 +68,11 @@ struct Snake move(struct Snake snake){
 
 struct Snake change_direction(enum Directions direction,struct Snake snake) {
   if(direction==UP && (snake.direction==RIGHT || snake.direction==LEFT)){
-
+    snake.direction = direction;
   }else if (direction==RIGHT && (snake.direction==UP || snake.direction==DOWN)){
-
+    snake.direction = direction;
   }else if(direction==LEFT && (snake.direction==UP || snake.direction==DOWN)){
-
+    snake.direction = direction;
   }else if(direction==DOWN && (snake.direction==RIGHT || snake.direction==LEFT)){
      snake.direction = direction;
   }

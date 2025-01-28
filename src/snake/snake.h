@@ -15,8 +15,6 @@ enum Directions{
 struct SnakePiece{
   uint32_t row;
   uint32_t col;
-  int32_t next;
-  int32_t prev;
 };
 
 

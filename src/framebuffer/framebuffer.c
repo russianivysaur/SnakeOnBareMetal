@@ -23,7 +23,7 @@ void update_display(struct Snake snake){
   for(uint32_t i=0;i<snake.length;i++){
     uint32_t prev_rows = snake.pieces[i].row;
     uint32_t prev_col = snake.pieces[i].col;
-    uint32_t prev_blocks = prev_rows * WIDTH + prev_col;
+    uint32_t prev_blocks = ((prev_rows) * WIDTH) + prev_col;
     memory[prev_blocks*2] = '*';
   }
 }
