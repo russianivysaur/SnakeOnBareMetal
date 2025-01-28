@@ -10,6 +10,6 @@ struct Snake snake;
 
 void kernel_main(){
   init_gdt();
-  snake = NewSnake(6);
+  snake = NewSnake(7);
   init_idt();
 }

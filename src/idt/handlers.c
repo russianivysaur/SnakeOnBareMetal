@@ -7,7 +7,7 @@ static char c = '0';
 extern struct Snake snake;
 
 uint32_t ticks = 0;
-uint32_t target = 400;
+uint32_t target = 700;
 void c_pit_handler() {
     ticks++;
     if(ticks == target){
@@ -27,16 +27,21 @@ void c_keyboard_handler() {
     switch(key){
         case 72: //up
             memory[0] = 'u';
+            snake = change_direction(UP,snake);
         break;
         case 75: //left
             memory[0] = 'l';
+            snake = change_direction(LEFT,snake);
         break;
         case 77: //right
             memory[0] = 'r';
+            snake = change_direction(RIGHT,snake);
         break;
         case 80: //down
             memory[0] = 'd';
+            snake = change_direction(DOWN,snake);
         break;
     }
+    update_display(snake);
     pic_ack();
 }
